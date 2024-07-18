@@ -1,0 +1,46 @@
+Group {
+ inputs 2
+ name DoubleMerge
+ tile_color 0x2b5fffff
+ selected true
+ addUserKnob {20 DoubleMerge}
+ addUserKnob {41 "Local GPU: " T BlinkScript2.gpuName}
+ addUserKnob {41 "Use GPU if Available" T BlinkScript2.useGPUIfAvailable}
+ addUserKnob {26 ""}
+ addUserKnob {7 multiply R 0 10}
+ multiply 1
+}
+ Input {
+  inputs 0
+  name A
+  xpos -2990
+  ypos 14518
+  number 1
+ }
+ Input {
+  inputs 0
+  name B
+  xpos -2990
+  ypos 14518
+ }
+ BlinkScript {
+  inputs 2
+  recompileCount 137
+  ProgramGroup 1
+  KernelDescription "3 \"DoubleMerge\" iterate pixelWise d662eb3c0be4dcbe76b83f3f170b2ed251ce7a8323960d384afbf45035515d60 3 \"B\" Read Point \"A\" Read Point \"dst\" Write Point 1 \"multiply\" Float 1 AACAPw== 1 \"multiply\" 1 1 Default 0"
+  EncodedSource "1 725 /7jirdyIK6rcAkeMFpYE+FKXEzj0p5oF8PjUfyCul0NTlZqud4PdQtDqTYYEYkCjBahiaFsg4AbUZCLumfgblUUbiGpxdJkKqHPIImVEfO0vfokEqB9OA30iwX+AILs+0GDTpmIacYXbV5fB9FoBTlzwOMGSQbHFesaVcUmedCkcSXilLYts2ZYdQqp8gGZ4StEKkkOTpV2nzkTADDScu6jwyz99IkKNuqV/LpDmA29acaeB/Uyvno9ZlnDgWF0qe9OxVm/IuWP9OCQ1uVjhp/u+bbNuyWxMRM0WcBdaROy7fkgmr1/031/x4bcPg5hBKebYc2+N8FjeZHzwR8WVUVqVqHjCVIJ5JvEPI4gvIIwHPYoRjYHki1rClglc+36XTjs/47nJoTmZBTmNJcg/1TcNfaBAzDJzptH0IHapFVGv9Dx3YuN0dTJ+d7Gc4hPfza7ua115WheWGJBvNwQNfc3KYrQZa1T/p/DLVQ3LYSH4iuYKQmn9eyuGNNXSDK4BC/drFw80DDm62GgFhS04ImZh3JqHxDbzQp5HCzy9AlLtxDVPW0mB1qKxAbM+93/C5x8242cslbouOZOQElxkCn0jws5wb9g/vYZls3Na4yHMc9l92HcloBfTTMTY71MNRwjYUBQGA4vrgfqQPfsDyxMlEC4jXbIdaW805tZKKAyajoI6WBftl0gcnfC05IWYPBThlLO1dEqjE2BN2PVw3CTAH2wFzyIfbT30QhDq22MQEdCdjT50eK3JZwksqODZJ/+yVkkf9UKv8rDtU39kY21JBLkTp4THvgvdRK0phCSdpBZo8by5WT4R3EenHNbyqdiQJyWnwXuepUCD/zqIHvGu1NTho/8YUnh8KXFfL1JcI7Q4cVG0bx0vB6jvng34NfYjvo/9yd8Iqkueef5zUCF3l6raGwkwknderP0ROJWlb0hJH+cAX/WcDZIqyT6lcho24ZyADvtCO5P61WBmsw=="
+  rebuild ""
+  DoubleMerge_multiply {{parent.multiply}}
+  protectKernelWhenPublishing true
+  rebuild_finalise ""
+  name BlinkScript2
+  selected true
+  xpos -2990
+  ypos 14586
+ }
+ Output {
+  name Output1
+  xpos -2990
+  ypos 14658
+ }
+end_group
