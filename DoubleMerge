@@ -1,5 +1,4 @@
 Group {
-inputs 2
 name DoubleMerge
 tile_color 0x3265ffff
 note_font Verdana
