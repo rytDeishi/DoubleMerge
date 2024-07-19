@@ -1,46 +1,58 @@
 Group {
- inputs 2
- name DoubleMerge
- tile_color 0x2b5fffff
- selected true
- addUserKnob {20 DoubleMerge}
- addUserKnob {41 "Local GPU: " T BlinkScript2.gpuName}
- addUserKnob {41 "Use GPU if Available" T BlinkScript2.useGPUIfAvailable}
- addUserKnob {26 ""}
- addUserKnob {7 multiply R 0 10}
- multiply 1
+inputs 2
+name DoubleMerge
+tile_color 0x3265ffff
+note_font Verdana
+selected true
+addUserKnob {20 DoubleMerge}
+addUserKnob {41 "Local GPU: " T BlinkScript1.gpuName}
+addUserKnob {41 "Use GPU if Available" T BlinkScript1.useGPUIfAvailable}
+addUserKnob {26 "" +STARTLINE}
+addUserKnob {41 multiply +INVISIBLE T BlinkScript1.DoubleMerge_multiply}
+addUserKnob {41 contrast +INVISIBLE T BlinkScript1.DoubleMerge_contrast}
+addUserKnob {41 offset +INVISIBLE T BlinkScript1.DoubleMerge_offset}
+addUserKnob {7 multiply_1 l multiply R 0 5}
+multiply_1 1
+addUserKnob {7 contrast_1 l contrast R 0 5}
+contrast_1 1
+addUserKnob {7 offset_1 l offset R 0 10}
 }
- Input {
-  inputs 0
-  name A
-  xpos -2990
-  ypos 14518
-  number 1
- }
- Input {
-  inputs 0
-  name B
-  xpos -2990
-  ypos 14518
- }
- BlinkScript {
-  inputs 2
-  recompileCount 137
-  ProgramGroup 1
-  KernelDescription "3 \"DoubleMerge\" iterate pixelWise d662eb3c0be4dcbe76b83f3f170b2ed251ce7a8323960d384afbf45035515d60 3 \"B\" Read Point \"A\" Read Point \"dst\" Write Point 1 \"multiply\" Float 1 AACAPw== 1 \"multiply\" 1 1 Default 0"
-  EncodedSource "1 725 /7jirdyIK6rcAkeMFpYE+FKXEzj0p5oF8PjUfyCul0NTlZqud4PdQtDqTYYEYkCjBahiaFsg4AbUZCLumfgblUUbiGpxdJkKqHPIImVEfO0vfokEqB9OA30iwX+AILs+0GDTpmIacYXbV5fB9FoBTlzwOMGSQbHFesaVcUmedCkcSXilLYts2ZYdQqp8gGZ4StEKkkOTpV2nzkTADDScu6jwyz99IkKNuqV/LpDmA29acaeB/Uyvno9ZlnDgWF0qe9OxVm/IuWP9OCQ1uVjhp/u+bbNuyWxMRM0WcBdaROy7fkgmr1/031/x4bcPg5hBKebYc2+N8FjeZHzwR8WVUVqVqHjCVIJ5JvEPI4gvIIwHPYoRjYHki1rClglc+36XTjs/47nJoTmZBTmNJcg/1TcNfaBAzDJzptH0IHapFVGv9Dx3YuN0dTJ+d7Gc4hPfza7ua115WheWGJBvNwQNfc3KYrQZa1T/p/DLVQ3LYSH4iuYKQmn9eyuGNNXSDK4BC/drFw80DDm62GgFhS04ImZh3JqHxDbzQp5HCzy9AlLtxDVPW0mB1qKxAbM+93/C5x8242cslbouOZOQElxkCn0jws5wb9g/vYZls3Na4yHMc9l92HcloBfTTMTY71MNRwjYUBQGA4vrgfqQPfsDyxMlEC4jXbIdaW805tZKKAyajoI6WBftl0gcnfC05IWYPBThlLO1dEqjE2BN2PVw3CTAH2wFzyIfbT30QhDq22MQEdCdjT50eK3JZwksqODZJ/+yVkkf9UKv8rDtU39kY21JBLkTp4THvgvdRK0phCSdpBZo8by5WT4R3EenHNbyqdiQJyWnwXuepUCD/zqIHvGu1NTho/8YUnh8KXFfL1JcI7Q4cVG0bx0vB6jvng34NfYjvo/9yd8Iqkueef5zUCF3l6raGwkwknderP0ROJWlb0hJH+cAX/WcDZIqyT6lcho24ZyADvtCO5P61WBmsw=="
-  rebuild ""
-  DoubleMerge_multiply {{parent.multiply}}
-  protectKernelWhenPublishing true
-  rebuild_finalise ""
-  name BlinkScript2
-  selected true
-  xpos -2990
-  ypos 14586
- }
- Output {
-  name Output1
-  xpos -2990
-  ypos 14658
- }
+Input {
+inputs 0
+name A
+note_font Verdana
+selected true
+xpos 520
+ypos 32208
+number 1
+}
+Input {
+inputs 0
+name B
+note_font Verdana
+xpos 672
+ypos 32200
+}
+BlinkScript {
+inputs 2
+recompileCount 49
+ProgramGroup 1
+KernelDescription "2 \"DoubleMerge\" iterate pixelWise a47b6b43bc92d68107c9a983d0018803b94e3246e47b71322cf0f5dc8368083c 3 \"B\" Read Point \"A\" Read Point \"dst\" Write Point 3 \"multiply\" Float 1 AACAPw== \"contrast\" Float 1 AACAPw== \"offset\" Float 1 AAAAAA== 3 \"multiply\" 1 1 \"contrast\" 1 1 \"offset\" 1 1 0"
+kernelSource "\nkernel DoubleMerge : ImageComputationKernel<ePixelWise>\n\{\n  Image<eRead, eAccessPoint, eEdgeClamped> B; // the input image\n  Image<eRead, eAccessPoint, eEdgeClamped> A;\n  Image<eWrite> dst; // the output image\n\n  param:\n\n    float multiply;\n    float contrast;\n    float offset;\n\n  local:\n\n  void define() \{\n\n    defineParam(multiply, \"multiply\", 1.0f);\n    defineParam(contrast, \"contrast\", 1.0f);\n    defineParam(offset, \"offset\", 0.0f);\n\n\n  \}\n\n  void init() \{\n\n  \}\n\n  void process() \{\n\n    dst(0) = B(0) * pow( ( 1 - A(3)), ( ((multiply - multiply/2) + 0.5f ) / contrast) - offset/2 ) + (A(0)* ((multiply - multiply/2 + 0.5f / contrast) - offset ) );\n    dst(1) = B(1) * pow( ( 1 - A(3)), ( ((multiply - multiply/2) + 0.5f ) / contrast) - offset/2 ) + (A(1)* ((multiply - multiply/2 + 0.5f / contrast) - offset ) );\n    dst(2) = B(2) * pow( ( 1 - A(3)), ( ((multiply - multiply/2) + 0.5f ) / contrast) - offset/2 ) + (A(2)* ((multiply - multiply/2 + 0.5f / contrast) - offset ) );\n    dst(3) = dst(3);\n  \}\n\};"
+rebuild ""
+DoubleMerge_multiply {{parent.multiply_1}}
+DoubleMerge_contrast {{parent.contrast_1}}
+DoubleMerge_offset {{parent.offset_1}}
+rebuild_finalise ""
+name BlinkScript1
+note_font Verdana
+xpos 672
+ypos 32278
+}
+Output {
+name Output1
+note_font Verdana
+xpos 672
+ypos 32338
+}
 end_group
